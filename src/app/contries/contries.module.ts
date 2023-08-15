@@ -7,6 +7,7 @@ import { ContryPageComponent } from './pages/contry-page/contry-page.component';
 import { CountriesRoutingModule } from './contries-routing.module';
 import { SearchBoxComponent } from '../shared/components/search-box/search-box.component';
 import { SharedModule } from '../shared/shared.module';
+import { ContryTableComponent } from './components/contry-table/contry-table.component';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     ByCapitalPagesComponent,
     ByContryPageComponent,
     ByRegionPageComponent,
-    ContryPageComponent
+    ContryPageComponent,
+    ContryTableComponent
   ],
   imports: [
     CommonModule,
