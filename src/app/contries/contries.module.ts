@@ -22,7 +22,7 @@ import { ContryTableComponent } from './components/contry-table/contry-table.com
   imports: [
     CommonModule,
     CountriesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ContriesModule { }
