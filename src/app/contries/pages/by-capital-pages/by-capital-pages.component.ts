@@ -11,6 +11,7 @@ export class ByCapitalPagesComponent {
   public countries: Country[] = [];
   public isLoading: boolean = false;
 
+  
   constructor(private constriesServcices: ContrySevices) {}
 
   searByCapital(term: any) {

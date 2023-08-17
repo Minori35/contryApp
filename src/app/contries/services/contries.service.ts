@@ -2,11 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of , delay} from 'rxjs';
 import { Country } from '../interfaces/country';
+import { CacheStore } from '../interfaces/cache-store.interface';
 
 @Injectable({providedIn: 'root'})
 export class ContrySevices {
 
     private apiUrl : string ='https://restcountries.com/v3.1'
+
+    public cacheStore: CacheStore ={
+        byCapital:{term : '', country:[]},
+        byCountry:{term:'',country : []},
+        byRegion:{region:'',country : []}
+
+    }
+
+
     private getCountriespRequest(url : string):Observable<Country[]>{
         return this.http.get<Country[]>(url)
         .pipe(
