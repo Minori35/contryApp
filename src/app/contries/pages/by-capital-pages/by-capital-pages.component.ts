@@ -5,26 +5,21 @@ import { Country } from '../../interfaces/country';
 @Component({
   selector: 'app-by-capital-pages',
   templateUrl: './by-capital-pages.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class ByCapitalPagesComponent {
+  public countries: Country[] = [];
+  public isLoading: boolean = false;
 
-  public countries :Country[] =[]
+  constructor(private constriesServcices: ContrySevices) {}
 
-  constructor( private constriesServcices : ContrySevices){}
+  searByCapital(term: any) {
+    this.isLoading = true;
 
-
-  searByCapital(term: any){
-    this.constriesServcices.searchCapital(term)
-    .subscribe( contries =>{
-      this.countries = contries
+    this.constriesServcices.searchCapital(term).subscribe((contries) => {
+      this.countries = contries;
       console.log(this.countries);
-      
-    } )
-
+      this.isLoading = false;
+    });
   }
-
- 
-
 }
