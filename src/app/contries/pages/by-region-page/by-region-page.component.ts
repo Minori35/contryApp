@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContrySevices } from '../../services/contries.service';
 import { Country } from '../../interfaces/country';
 import { Region } from '../../interfaces/region.type';
@@ -9,7 +9,8 @@ import { Region } from '../../interfaces/region.type';
   styles: [
   ]
 })
-export class ByRegionPageComponent {
+export class ByRegionPageComponent implements OnInit
+ {
 
   public region : Country[]=[]
 
@@ -19,6 +20,10 @@ export class ByRegionPageComponent {
 
   constructor( public countryServices: ContrySevices){
 
+  }
+  ngOnInit(): void {
+    this.region = this.countryServices.cacheStore.byRegion.country;
+    this.selectedRegion=this.countryServices.cacheStore.byRegion.region;
   }
 
   searchRegion(term: Region){

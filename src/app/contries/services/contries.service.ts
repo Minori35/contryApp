@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of , delay} from 'rxjs';
+import { Observable, catchError, map, of , delay, tap} from 'rxjs';
 import { Country } from '../interfaces/country';
 import { CacheStore } from '../interfaces/cache-store.interface';
+import { Region } from '../interfaces/region.type';
 
 @Injectable({providedIn: 'root'})
 export class ContrySevices {
@@ -37,17 +38,30 @@ export class ContrySevices {
     
     searchCapital(term : string): Observable<Country[]>{
         const url= `${ this.apiUrl}/capital/${term}`;
-        return this.getCountriespRequest(url);
+        return this.getCountriespRequest(url)
+        .pipe(
+            tap(country => this.cacheStore.byCapital= {term , country} )
+        );
 
     }
 
     searchName(term : string): Observable<Country[]>{
         const url= `${ this.apiUrl}/name/${term}`;
-        return this.getCountriespRequest(url);
+        return this.getCountriespRequest(url).
+        pipe(
+            tap(country => {
+                return this.cacheStore.byCountry= {term , country} 
+            })
+        );
     }
 
-    searchRegion(term : string): Observable<Country[]>{
-        const url= `${ this.apiUrl}/region/${term}`;
-        return this.getCountriespRequest(url);
+    searchRegion(region : Region): Observable<Country[]>{
+        const url= `${ this.apiUrl}/region/${region}`;
+        return this.getCountriespRequest(url).
+        pipe(
+            tap(country => {
+                return this.cacheStore.byRegion= {region , country} 
+            })
+        );
     }
 }

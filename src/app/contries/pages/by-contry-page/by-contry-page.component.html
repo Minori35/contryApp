@@ -1,4 +1,4 @@
-<h2>Por Capital</h2>
+<h2>Por Pais</h2>
 <hr />
 
 <div class="row">
@@ -6,8 +6,10 @@
     <!-- SearchBox -->
 
     <shared-search-box
-    placeHolder="Buscar por Pais"
-    (onValue)="searchPais($event)"> 
+    (onDebouce) = "searchPais($event)" 
+    [initialValue] = "initialValue" 
+    placeHolder="Buscar por Pais"z
+    > 
 
     </shared-search-box>
   </div>
@@ -17,6 +19,11 @@
   <div class="col">
     <!-- taba -->
     <hr>
+    <shared-loading-spinner 
+    *ngIf="isLoading" 
+    
+    > </shared-loading-spinner>
+
     <contry-table [countries]="pais"></contry-table>
   </div>
 </div>

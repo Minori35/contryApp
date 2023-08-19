@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter} from '@angular/core';
 import { ContrySevices } from '../../services/contries.service';
 import { Country } from '../../interfaces/country';
+import { Subject, Subscription, debounceTime, pipe } from 'rxjs';
+
 
 @Component({
   selector: 'app-by-contry-page',
@@ -8,18 +10,33 @@ import { Country } from '../../interfaces/country';
   styles: [
   ]
 })
-export class ByContryPageComponent {
+export class ByContryPageComponent implements OnInit{
+
+
+  
+  @Output()
+  public onDebouce = new EventEmitter<string>()
 
   public pais: Country[]=[];
+  public isLoading: boolean = false;
+  public initialValue : string= "";
+
   constructor(public servicesCountry: ContrySevices){
 
   }
 
+  ngOnInit(): void {
+    
+    this.pais = this.servicesCountry.cacheStore.byCapital.country;
+    this.initialValue= this.servicesCountry.cacheStore.byCapital.term;
+    console.log("🚀 ~ file: by-contry-page.component.ts:35 ~ ByContryPageComponent ~ ngOnInit ~ this.initialValue:", this.initialValue)
+  }
+
   searchPais(term: string){
-    this.servicesCountry.searchName(term)
-    .subscribe( pais =>{
+    this.isLoading = true;
+    this.servicesCountry.searchName(term).subscribe( pais =>{
       this.pais = pais;
-      console.log("🚀 ~ file: by-contry-page.component.ts:22 ~ ByContryPageComponent ~ searchPais ~ this.pais:", this.pais)
+      this.isLoading = false;
 
     })
 

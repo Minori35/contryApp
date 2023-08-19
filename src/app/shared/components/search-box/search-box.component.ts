@@ -12,6 +12,9 @@ export class SearchBoxComponent implements OnInit, OnDestroy{
   private deboucer  = new Subject<string>();
 
   private debouncerSuscription? : Subscription;
+  
+  @Input()
+  initialValue : string = ""
 
   @Input()
   placeHolder : string = ""
@@ -32,6 +35,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy{
       this.onDebouce.emit(value)
       
     })
+
     
   }
 
